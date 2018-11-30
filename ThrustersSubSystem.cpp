@@ -26,17 +26,18 @@ void ThrustersSubSystem::set_power(int8_t x, int8_t y, int8_t w, int8_t z)
 	for (int i = 0; i < THRUSTER_SIZE; i++)
 	{
 		m_motors[i].set_power(power[i]);
+		Serial.println(power[i]);
 	}
 	Serial.println();
 }
 
 void ThrustersSubSystem::manual_regulator(int8_t power[], int8_t x, int8_t y, int8_t w, int8_t z)
 {
-	power[0] = y + x + w;
-	power[1] = y - x - w;
-	power[2] = y - x + w;
-	power[3] = y + x - w;
-	power[4] = z;
-	power[5] = z;
+	power[0] = constrain(y + x + w, -100, 100);
+	power[1] = constrain(y - x - w, -100, 100);
+	power[2] = constrain(y - x + w, -100, 100);
+	power[3] = constrain(y + x - w, -100, 100);
+	power[4] = constrain(z, -100, 100);
+	power[5] = constrain(z, -100, 100);
 
 }
